@@ -1,127 +1,188 @@
-// Crear nombre de usuario y contraseña
-const crearUsuario = () => {
-    const usuario = prompt("Crea tu nombre de usuario:");
-    const contraseña = prompt("Crea tu contraseña:");
-
-    // Guarda el usuario y la contraseña en variables
-    return { usuario, contraseña };
+// Array de ejercicios por grupo muscular
+const ejercicios = {
+    gluteos: [
+        { nombre: "Hip Thrust", descripcion: "Ejercicio para activar y fortalecer los glúteos." },
+        { nombre: "Puente de glúteos", descripcion: "Ejercicio de empuje para la parte baja del cuerpo." },
+        { nombre: "Patada de glúteo en polea", descripcion: "Ejercicio aislado para glúteos en polea baja." },
+        { nombre: "Sentadilla sumo", descripcion: "Variante de sentadilla enfocada en glúteos y aductores." },
+        { nombre: "Peso muerto rumano", descripcion: "Ejercicio que trabaja glúteos e isquiotibiales." }
+    ],
+    isquiotibiales: [
+        { nombre: "Curl de piernas acostado", descripcion: "Ejercicio de aislamiento para isquiotibiales." },
+        { nombre: "Peso muerto rumano", descripcion: "Ejercicio compuesto para isquiotibiales y glúteos." },
+        { nombre: "Puente de glúteos con pierna extendida", descripcion: "Variante avanzada para isquiotibiales y glúteos." },
+        { nombre: "Curl de piernas sentado", descripcion: "Ejercicio controlado para isquiotibiales." },
+        { nombre: "Buenos días", descripcion: "Ejercicio de bisagra de cadera para fortalecer isquiotibiales." }
+    ],
+    cuadriceps: [
+        { nombre: "Sentadilla con barra", descripcion: "Ejercicio compuesto para piernas y core." },
+        { nombre: "Prensa de piernas", descripcion: "Ejercicio de empuje para cuadriceps y glúteos." },
+        { nombre: "Zancadas con mancuernas", descripcion: "Ejercicio unilateral para piernas." },
+        { nombre: "Extensión de piernas", descripcion: "Ejercicio aislado para el cuadriceps." },
+        { nombre: "Sentadilla frontal", descripcion: "Variante de sentadilla que enfatiza el cuadriceps." }
+    ],
+    gemelos: [
+        { nombre: "Elevación de talones de pie", descripcion: "Ejercicio básico para desarrollar gemelos." },
+        { nombre: "Elevación de talones sentado", descripcion: "Ejercicio que trabaja el sóleo del gemelo." },
+        { nombre: "Saltos con cuerda", descripcion: "Ejercicio dinámico para fortalecer los gemelos." },
+        { nombre: "Elevación de talones en prensa", descripcion: "Ejercicio de carga progresiva para gemelos." },
+        { nombre: "Sprint en cuesta", descripcion: "Ejercicio funcional para fortalecer gemelos y piernas." }
+    ],
+    hombros: [
+        { nombre: "Press militar con barra", descripcion: "Ejercicio compuesto para hombros y tríceps." },
+        { nombre: "Elevaciones laterales", descripcion: "Ejercicio aislado para deltoides laterales." },
+        { nombre: "Press Arnold", descripcion: "Variante de press para activar todos los deltoides." },
+        { nombre: "Elevaciones frontales", descripcion: "Ejercicio aislado para deltoides frontales." },
+        { nombre: "Face pull", descripcion: "Ejercicio para hombros posteriores y trapecios." }
+    ],
+    biceps: [
+        { nombre: "Curl con barra", descripcion: "Ejercicio básico para desarrollar los bíceps." },
+        { nombre: "Curl con mancuernas", descripcion: "Ejercicio unilateral para mayor control." },
+        { nombre: "Curl martillo", descripcion: "Ejercicio para trabajar braquial y bíceps." },
+        { nombre: "Curl concentrado", descripcion: "Ejercicio de aislamiento para los bíceps." },
+        { nombre: "Dominadas supinas", descripcion: "Ejercicio compuesto que trabaja espalda y bíceps." }
+    ],
+    triceps: [
+        { nombre: "Fondos en paralelas", descripcion: "Ejercicio compuesto para tríceps y pectorales." },
+        { nombre: "Extensiones de tríceps en polea", descripcion: "Ejercicio de aislamiento para tríceps." },
+        { nombre: "Press francés con barra", descripcion: "Ejercicio de empuje para el tríceps." }
+    ],
+    espalda: [
+        { nombre: "Dominadas", descripcion: "Ejercicio compuesto para dorsales y bíceps." },
+        { nombre: "Remo con barra", descripcion: "Ejercicio para desarrollar la espalda media." },
+        { nombre: "Jalón al pecho", descripcion: "Ejercicio en polea para dorsales." },
+        { nombre: "Remo con mancuerna", descripcion: "Ejercicio unilateral para la espalda." },
+        { nombre: "Peso muerto", descripcion: "Ejercicio completo que trabaja toda la espalda." }
+    ]
 };
 
-  // Solicitar nombre de usuario y contraseña para ingresar
-const ingresar = (usuarioGuardado, contraseñaGuardada) => {
-    const usuarioIngreso = prompt("Ingresa tu nombre de usuario:");
-    const contraseñaIngreso = prompt("Ingresa tu contraseña:");
-
-    if (usuarioIngreso === usuarioGuardado && contraseñaIngreso === contraseñaGuardada) {
-    alert("¡Ingreso exitoso!");
-    } else {
-    alert("Nombre de usuario o contraseña incorrectos.");
-    }
+// Cargar rutinas
+const rutinas = JSON.parse(localStorage.getItem("rutinas")) || {
+    lunes: [],
+    martes: [],
+    miercoles: [],
+    jueves: [],
+    viernes: [],
+    sabado: []
 };
 
-  // Crear el usuario y la contraseña
-const { usuario, contraseña } = crearUsuario();
+//Funcion guardar la rutina
+function guardarRutinas() {
+    localStorage.setItem("rutinas", JSON.stringify(rutinas));
+}
 
-  // Intentar ingresar con los datos
-ingresar(usuario, contraseña);
+  // Funcion para obtener un ejercicion por nombre
+function obtenerEjercicioPorNombre(nombre) {
+    return Object.values(ejercicios).flat().find(e => e.nombre === nombre);
+}
 
-//array empleados de la empresa
-let arrayEmpleados = [];
+  //Funcion para agregar un ejercicio al dia especifico
+function agregarEjercicioARutina(dia, nombre, series, repeticiones) {
+    const ejercicio = obtenerEjercicioPorNombre(nombre);
+    if (ejercicio && rutinas[dia].length < 6) {
+    rutinas[dia].push({ ...ejercicio, series, repeticiones });
+    guardarRutinas();
+    actualizarListaRutina(dia);
+    }
+}
 
-arrayEmpleados.push({
-    nombre: "Ana", puesto: "Desarrolladora"
+  // Eliminar ejercicio de un día específico
+function eliminarEjercicioDeRutina(dia, nombre) {
+    rutinas[dia] = rutinas[dia].filter(ejercicio => ejercicio.nombre !== nombre);
+    guardarRutinas();
+    actualizarListaRutina(dia);
+}
+
+  // Modificar ejercicio de la rutina
+function modificarEjercicioEnRutina(dia, nombre, nuevaSeries, nuevasRepeticiones) {
+    const index = rutinas[dia].findIndex(e => e.nombre === nombre);
+    if (index !== -1) {
+    rutinas[dia][index].series = nuevaSeries;
+    rutinas[dia][index].repeticiones = nuevasRepeticiones;
+    guardarRutinas();
+    actualizarListaRutina(dia);
+    }
+}
+
+  // Función que crea un formulario de edicion
+function crearFormularioEdicion(li, dia, ejercicio) {
+    li.innerHTML = "";
+
+    // Input para series
+    const inputSeries = document.createElement("input");
+    inputSeries.type = "number";
+    inputSeries.value = ejercicio.series;
+    inputSeries.placeholder = "Series";
+
+    // Input para repeticiones
+    const inputRepeticiones = document.createElement("input");
+    inputRepeticiones.type = "number";
+    inputRepeticiones.value = ejercicio.repeticiones;
+    inputRepeticiones.placeholder = "Repeticiones";
+
+    // Botón para guardar cambios
+    const btnGuardar = document.createElement("button");
+    btnGuardar.textContent = "Guardar";
+    btnGuardar.addEventListener("click", () => {
+    const nuevasSeries = inputSeries.value;
+    const nuevasRepeticiones = inputRepeticiones.value;
+    if (nuevasSeries && nuevasRepeticiones) {
+        modificarEjercicioEnRutina(dia, ejercicio.nombre, nuevasSeries, nuevasRepeticiones);
+    }
+    
+    });
+
+    // Botón para cancelar y actualizar
+    const btnCancelar = document.createElement("button");
+    btnCancelar.textContent = "Cancelar";
+    btnCancelar.addEventListener("click", () => {
+    actualizarListaRutina(dia);
+    });
+
+    li.appendChild(inputSeries);
+    li.appendChild(inputRepeticiones);
+    li.appendChild(btnGuardar);
+    li.appendChild(btnCancelar);
+}
+
+  // Actualizar la lista de rutinas para un día específico
+function actualizarListaRutina(dia) {
+    const lista = document.getElementById(`rutina-${dia}`);
+    lista.innerHTML = "";
+    rutinas[dia].map(ejercicio => {
+    const li = document.createElement("li");
+    li.textContent = `${ejercicio.nombre} - ${ejercicio.series}x${ejercicio.repeticiones}`;
+
+    const btnModificar = document.createElement("button");
+    btnModificar.textContent = "Modificar";
+    btnModificar.addEventListener("click", () => {
+        crearFormularioEdicion(li, dia, ejercicio);
+    });
+
+    const btnEliminar = document.createElement("button");
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.addEventListener("click", () => {
+        eliminarEjercicioDeRutina(dia, ejercicio.nombre);
+    });
+
+    li.appendChild(btnModificar);
+    li.appendChild(btnEliminar);
+    lista.appendChild(li);
+    });
+}
+
+  //envío del formulario para añadir ejercicios
+const form = document.getElementById("form-rutina");
+form.addEventListener("submit", event => {
+    event.preventDefault();
+    const dia = event.target.dia.value;
+    const nombre = event.target.ejercicio.value;
+    const series = event.target.series.value;
+    const repeticiones = event.target.repeticiones.value;
+    agregarEjercicioARutina(dia, nombre, series, repeticiones);
+    event.target.reset();
 });
-arrayEmpleados.push({
-    nombre:"Felipe", puesto:"Recursos humanos"
+
+Object.keys(rutinas).forEach(dia => {
+    actualizarListaRutina(dia);
 });
-arrayEmpleados.push({
-    nombre:"Patricia", puesto:"Gerente de operaciones"
-});
-
-console.log(arrayEmpleados)
-
-for(let Empleados of arrayEmpleados){
-    console.log(Empleados.nombre,Empleados.puesto);
-}
-
-
-// Array para almacenar los tickets
-let tickets = [];
-
-// Función para agregar un nuevo ticket
-function agregarTicket() {
-    
-    let titulo = prompt("Ingresa el título del ticket:");
-    let descripcion = prompt("Ingresa la descripción del ticket:");
-    
-    // Valida que ambos campos estén llenos
-    if (titulo === "" || descripcion === "") {
-        alert("Por favor, completa ambos campos.");
-        return; // Salir de la función si falta información
-    }
-    
-    // Crear un objeto ticket
-    let nuevoTicket = {
-        titulo: titulo,
-        descripcion: descripcion,
-        estado: "Abierto"
-    };
-
-    // Agrega el ticket al array
-    tickets.push(nuevoTicket);
-    
-    alert("Ticket agregado correctamente.");
-    console.log("Tickets actuales:", tickets);
-}
-
-// Función para mostrar todos los tickets
-function verTickets() {
-    if (tickets.length === 0) {
-        alert("No hay tickets reportados.");
-        return;
-    }
-
-    // Array de tickets y muestra con ciclo for
-    for (let i = 0; i < tickets.length; i++) {
-        let ticket = tickets[i];
-        alert(`Ticket ${i + 1}:\nTítulo: ${ticket.titulo}\nDescripción: ${ticket.descripcion}\nEstado: ${ticket.estado}`);
-    }
-}
-
-// Función para marcar un ticket como resuelto
-function resolverTicket() {
-    let idTicket = prompt("Ingresa el número del ticket que deseas marcar como resuelto:");
-
-    // Validar si el ticket existe
-    if (idTicket >= 1 && idTicket <= tickets.length) {
-        tickets[idTicket - 1].estado = "Resuelto"; 
-        alert("El ticket ha sido marcado como resuelto.");
-        console.log("Tickets actualizados:", tickets); 
-    } else {
-        alert("Ticket no encontrado.");
-    }
-}
-
-// Menú interactivo para probar las funciones
-function menu() {
-    let opcion = prompt("¿Qué te gustaría hacer?\n1. Agregar ticket\n2. Ver tickets\n3. Marcar ticket como resuelto\n4. Salir");
-
-    if (opcion === "1") {
-        agregarTicket();
-    } else if (opcion === "2") {
-        verTickets();
-    } else if (opcion === "3") {
-        resolverTicket();
-    } else if (opcion === "4") {
-        alert("¡Hasta luego!");
-        return; // Salir del programa
-    } else {
-        alert("Opción no válida.");
-    }
-
-    // Volver a mostrar el menú
-    menu();
-}
-
-// Ejecutar el menú cuando se cargue el script
-menu();
