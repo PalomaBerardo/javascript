@@ -1,86 +1,109 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 20px;
+  margin: 0;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
 }
-
-h1, h2, h3 {
-  color: #333;
-}
-
-form {
-  background: white;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+header {
+  text-align: center;
   margin-bottom: 20px;
 }
-
-label {
-  display: block;
-  margin-top: 10px;
+h1 { color: #333; }
+/* Tarjetas de ejercicios */
+#ejercicios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
 }
-
-input, select {
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  width: 300px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.card span { font-size: 0.9rem; color: #555; }
+.card h3 { margin: 10px 0 5px; color: #222; }
+.card h4 { margin: 0; font-weight: normal; color: #777; }
+/* Formulario */
+#form-ejercicios {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  max-width: 500px;
+  margin: 0 auto 30px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+#form-ejercicios h2 { text-align: center; margin-bottom: 15px; }
+#form-ejercicios label { display: block; margin: 10px 0 5px; font-weight: bold; }
+#form-ejercicios input,
+#form-ejercicios select {
   width: 100%;
   padding: 8px;
-  margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
-button {
-  margin-top: 10px;
-  padding: 8px 12px;
-  background-color: #28a745;
-  color: white;
+#form-ejercicios button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
   border: none;
   border-radius: 4px;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 1rem;
   cursor: pointer;
 }
-
-button:hover {
-  background-color: #218838;
+#form-ejercicios button:hover { background-color: #218838; }
+/* Mensajes de error */
+#errorContainer {
+  margin-top: 10px;
+  text-align: center;
 }
-
-#rutinas-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-#rutinas-container div {
-  background: white;
+/* Rutinas por día */
+.dia-rutina {
+  background-color: #fff;
   padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  flex: 1;
-  min-width: 200px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-ul {
-  list-style-type: none;
+.dia-rutina h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+}
+.dia-rutina ul {
+  list-style: none;
   padding: 0;
 }
-
-li {
-  background: #fff;
-  padding: 10px;
+.dia-rutina li {
+  background: #f1f1f1;
   margin: 5px 0;
+  padding: 10px;
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
-
-li button {
-  background-color: #dc3545;
+.dia-rutina li button {
+  margin-left: 10px;
   padding: 5px 10px;
-  margin-left: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
-
-li button:hover {
-  background-color: #c82333;
+.dia-rutina li button:nth-child(2) {
+  background-color: #ffc107;
+  color: #fff;
+}
+.dia-rutina li button:nth-child(3) {
+  background-color: #dc3545;
+  color: #fff;
 }

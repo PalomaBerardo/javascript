@@ -1,122 +1,77 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- CSS -->
-<link rel="stylesheet" href="css/style.css">
-<!-- JS -->
-<script defer src="./js/main.js"></script>
-<title>Creador de rutina</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <!--JS-->
+    <script defer src="./js/main.js"></script>
+    <title>Rutina de Ejercicios</title>
 </head>
 <body>
-<h1>Gestión de Rutinas de Gimnasio</h1>
-
-<form id="form-rutina">
-    <label for="dia">Día:</label>
-    <select id="dia" name="dia">
-    <option value="lunes">Lunes</option>
-    <option value="martes">Martes</option>
-    <option value="miercoles">Miércoles</option>
-    <option value="jueves">Jueves</option>
-    <option value="viernes">Viernes</option>
-    <option value="sabado">Sábado</option>
-    </select>
+    <header>
+        <h1>Listado de Ejercicios</h1>
+      </header>
     
-    <label for="ejercicio">Ejercicio:</label>
-    <select id="ejercicio" name="ejercicio">
-    <optgroup label="Glúteos">
-        <option value="Hip Thrust">Hip Thrust</option>
-        <option value="Puente de glúteos">Puente de glúteos</option>
-        <option value="Patada de glúteo en polea">Patada de glúteo en polea</option>
-        <option value="Sentadilla sumo">Sentadilla sumo</option>
-        <option value="Peso muerto rumano">Peso muerto rumano</option>
-    </optgroup>
-    <optgroup label="Isquiotibiales">
-        <option value="Curl de piernas acostado">Curl de piernas acostado</option>
-        <option value="Peso muerto rumano">Peso muerto rumano</option>
-        <option value="Puente de glúteos con pierna extendida">Puente de glúteos con pierna extendida</option>
-        <option value="Curl de piernas sentado">Curl de piernas sentado</option>
-        <option value="Buenos días">Buenos días</option>
-    </optgroup>
-    <optgroup label="Cuadriceps">
-        <option value="Sentadilla con barra">Sentadilla con barra</option>
-        <option value="Prensa de piernas">Prensa de piernas</option>
-        <option value="Zancadas con mancuernas">Zancadas con mancuernas</option>
-        <option value="Extensión de piernas">Extensión de piernas</option>
-        <option value="Sentadilla frontal">Sentadilla frontal</option>
-    </optgroup>
-    <optgroup label="Gemelos">
-        <option value="Elevación de talones de pie">Elevación de talones de pie</option>
-        <option value="Elevación de talones sentado">Elevación de talones sentado</option>
-        <option value="Saltos con cuerda">Saltos con cuerda</option>
-        <option value="Elevación de talones en prensa">Elevación de talones en prensa</option>
-        <option value="Sprint en cuesta">Sprint en cuesta</option>
-    </optgroup>
-    <optgroup label="Hombros">
-        <option value="Press militar con barra">Press militar con barra</option>
-        <option value="Elevaciones laterales">Elevaciones laterales</option>
-        <option value="Press Arnold">Press Arnold</option>
-        <option value="Elevaciones frontales">Elevaciones frontales</option>
-        <option value="Face pull">Face pull</option>
-    </optgroup>
-    <optgroup label="Bíceps">
-        <option value="Curl con barra">Curl con barra</option>
-        <option value="Curl con mancuernas">Curl con mancuernas</option>
-        <option value="Curl martillo">Curl martillo</option>
-        <option value="Curl concentrado">Curl concentrado</option>
-        <option value="Dominadas supinas">Dominadas supinas</option>
-    </optgroup>
-    <optgroup label="Tríceps">
-        <option value="Fondos en paralelas">Fondos en paralelas</option>
-        <option value="Extensiones de tríceps en polea">Extensiones de tríceps en polea</option>
-        <option value="Press francés con barra">Press francés con barra</option>
-    </optgroup>
-    <optgroup label="Espalda">
-        <option value="Dominadas">Dominadas</option>
-        <option value="Remo con barra">Remo con barra</option>
-        <option value="Jalón al pecho">Jalón al pecho</option>
-        <option value="Remo con mancuerna">Remo con mancuerna</option>
-        <option value="Peso muerto">Peso muerto</option>
-    </optgroup>
-    </select>
+      <!-- Tarjetas de ejercicios -->
+      <section id="ejercicios"></section>
     
-    <label for="series">Series:</label>
-    <input type="number" id="series" name="series" min="1" required>
+      <!-- Formulario para agregar ejercicios a la rutina -->
+      <form id="form-ejercicios">
+        <h2>Agregar Ejercicio a la Rutina</h2>
+        <label for="dia">Día:</label>
+        <select name="dia" id="dia" required>
+          <option value="">Seleccione un día</option>
+          <option value="lunes">Lunes</option>
+          <option value="martes">Martes</option>
+          <option value="miercoles">Miércoles</option>
+          <option value="jueves">Jueves</option>
+          <option value="viernes">Viernes</option>
+          <option value="sabado">Sábado</option>
+        </select>
     
-    <label for="repeticiones">Repeticiones:</label>
-    <input type="number" id="repeticiones" name="repeticiones" min="1" required>
+        <label for="ejercicio">Ejercicio:</label>
+        <!-- Se utiliza un select con los ejercicios disponibles -->
+        <select name="ejercicio" id="ejercicio" required>
+          <option value="">Seleccione un ejercicio</option>
+        </select>
     
-    <button type="submit">Agregar Ejercicio</button>
-</form>
-
-<h2>Rutinas</h2>
-<div id="rutinas-container">
-    <div>
-    <h3>Lunes</h3>
-    <ul id="rutina-lunes"></ul>
-    </div>
-    <div>
-    <h3>Martes</h3>
-    <ul id="rutina-martes"></ul>
-    </div>
-    <div>
-    <h3>Miércoles</h3>
-    <ul id="rutina-miercoles"></ul>
-    </div>
-    <div>
-    <h3>Jueves</h3>
-    <ul id="rutina-jueves"></ul>
-    </div>
-    <div>
-    <h3>Viernes</h3>
-    <ul id="rutina-viernes"></ul>
-    </div>
-    <div>
-    <h3>Sábado</h3>
-    <ul id="rutina-sabado"></ul>
-    </div>
-</div>
-
+        <label for="series">Series:</label>
+        <input type="number" name="series" id="series" min="1" placeholder="Número de series" required>
+    
+        <label for="repeticiones">Repeticiones:</label>
+        <input type="number" name="repeticiones" id="repeticiones" min="1" placeholder="Número de repeticiones" required>
+    
+        <button type="submit">Agregar a Rutina</button>
+        <p id="errorContainer"></p>
+      </form>
+    
+      <!-- Sección para mostrar las rutinas diarias -->
+      <section id="rutinas">
+        <div class="dia-rutina">
+          <h3>Lunes</h3>
+          <ul id="rutina-lunes"></ul>
+        </div>
+        <div class="dia-rutina">
+          <h3>Martes</h3>
+          <ul id="rutina-martes"></ul>
+        </div>
+        <div class="dia-rutina">
+          <h3>Miércoles</h3>
+          <ul id="rutina-miercoles"></ul>
+        </div>
+        <div class="dia-rutina">
+          <h3>Jueves</h3>
+          <ul id="rutina-jueves"></ul>
+        </div>
+        <div class="dia-rutina">
+          <h3>Viernes</h3>
+          <ul id="rutina-viernes"></ul>
+        </div>
+        <div class="dia-rutina">
+          <h3>Sábado</h3>
+          <ul id="rutina-sabado"></ul>
+        </div>
+      </section>
 </body>
 </html>
